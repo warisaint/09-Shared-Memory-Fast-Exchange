@@ -23,11 +23,11 @@ int main() {
   key_t key;
 
   // Generate a unique key
-  // key = ftok("/tmp", 'P');
-  // if (key == -1) {
-  //     perror("ftok");
-  //     exit(EXIT_FAILURE);
-  // }
+   key = ftok("/home/codespace", 'P');
+   if (key == -1) {
+       perror("ftok");
+       exit(EXIT_FAILURE);
+   }
 
   // shmID = shmget(key, MEM_SIZE, 0666 | IPC_CREAT);  // get shmID with size and perm or with IPC_CREAT (this line is for ftok)
   shmID = shmget((key_t) 1234, MEM_SIZE, 0666 | IPC_CREAT);  // get shmID

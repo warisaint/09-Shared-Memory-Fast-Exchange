@@ -21,11 +21,11 @@ int main(){
   key_t key;
 
   // Generate a unique key
-  // key = ftok("/tmp", 'P');
-  // if (key == -1) {
-  //     perror("ftok");
-  //     exit(EXIT_FAILURE);
-  // }
+   key = ftok("/home/codespace", 'P'); //char & int is the same in C lang, cuz 'P' = 80
+   if (key == -1) {
+       perror("ftok");
+       exit(EXIT_FAILURE);
+   }
   
   srand((unsigned int) getpid());  // generate random seed using process ID
   
