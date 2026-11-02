@@ -85,6 +85,7 @@ int task_fast_exchange(void) {
     }
 
     printf("parent fast write: done\n");
+    fflush(stdout);
 
     cleanup_segment(segment_id, block);
     return WIFEXITED(status) && WEXITSTATUS(status) == 0 ? 0 : 1;
@@ -148,6 +149,7 @@ int task_latest_value_limit(void) {
         return 1;
     }
     printf("limit observed: no history in shared memory\n");
+    fflush(stdout);
 
     cleanup_segment(segment_id, block);
     return WIFEXITED(status) && WEXITSTATUS(status) == 0 ? 0 : 1;
@@ -185,7 +187,7 @@ int task_capacity_limit(void) {
         wait_for_ready(block);
 
         /* TODO: print: child capacity bytes: 15 */
-        printf("child capacity bytes: %ld\n", strlen(block->message));
+        printf("child capacity bytes: %zu\n", strlen(block->message));
 
         /* TODO: detach and return 0 on success. */
         if(shmdt(block) == -1) {
@@ -210,7 +212,8 @@ int task_capacity_limit(void) {
         cleanup_segment(segment_id, block);
         return 1;
     }
-    printf("parent source bytes: %ld\n", strlen(source));   
+    printf("parent source bytes: %zu\n", strlen(source));   
+    fflush(stdout);
 
     cleanup_segment(segment_id, block);
     return WIFEXITED(status) && WEXITSTATUS(status) == 0 ? 0 : 1;
