@@ -20,10 +20,10 @@ int main (int argc, char* const argv[])
     close (fd);
 
     /* Read the integer, print it out, and double it. */
-    sscanf (file_memory, "%d", &integer);
+    sscanf (file_memory, "%d", &integer); //sscanf is scan from memory & format
     printf ("value: %d\n", integer);
     sprintf ((char*) file_memory, "%d\n", 2 * integer);
-    
+
     /* Release the memory (unnecessary because the program exits). */
     munmap (file_memory, FILE_LENGTH);
     return 0;
