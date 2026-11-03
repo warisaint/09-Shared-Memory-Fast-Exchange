@@ -24,20 +24,20 @@ int main (int argc, char* const argv[])
     srand (time (NULL));
 
     /* Prepare a file large enough to hold an unsigned integer. */
-    fd = open (argv[1], O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+    fd = open (argv[1], O_RDWR | O_CREAT, S_IRUSR | S_IWUSR); //can use both low/high level
     lseek (fd, FILE_LENGTH+1, SEEK_SET);
-    write (fd, “”, 1);
-    lseek (fd, 0, SEEK_SET);
+    write (fd, "", 1); //go to EOF to write NULL at the end
+    lseek (fd, 0, SEEK_SET); //back to beginning of file to write from start
 
     /* Create the memory mapping. */
     file_memory = mmap (0, FILE_LENGTH, PROT_WRITE, MAP_SHARED, fd, 0);
     close (fd);
 
     /* Write a random integer to memory-mapped area. */
-    sprintf((char*) file_memory, “%d\n”, random_range (-100, 100));
-    
+    sprintf((char*) file_memory, "%d\n", random_range (-100, 100));
+
     /* Release the memory (unnecessary because the program exits). */
-    munmap (file_memory, FILE_LENGTH);
+    munmap (file_memory, FILE_LENGTH); //unmap
     return 0;
 }
 
